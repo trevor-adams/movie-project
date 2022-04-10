@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <Navbar />
         <h1 className="text-6xl font-bold">Movie Project</h1>
-        <div className="">
+        <div className="pt-2">
           <ul
             role="list"
             className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
