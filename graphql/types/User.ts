@@ -10,7 +10,7 @@ export const User = objectType({
     t.list.field('movies', {
       type: Movie,
       resolve: (parent, _args, ctx) =>
-        ctx.prisma.movies.findMany({
+        ctx.prisma.movie.findMany({
           where: { userId: parent.id },
         }),
     })
@@ -20,7 +20,7 @@ export const User = objectType({
 export const userQueries = extendType({
   type: 'Query',
   definition(t) {
-    t.list.field('allUsers', {
+    t.list.field('users', {
       type: 'User',
       resolve: async (_parent, _args, ctx) => {
         const users = await ctx.prisma.user.findMany()
@@ -28,8 +28,7 @@ export const userQueries = extendType({
         return users
       },
     })
-
-    t.list.field('currentUser', {
+    t.field('user', {
       type: 'User',
       args: {
         userId: nonNull(stringArg()),
@@ -51,31 +50,44 @@ export const userMutations = extendType({
     t.field('createUser', {
       type: 'User',
       args: {
-        //TODO:
+        name: stringArg(),
+        email: nonNull(stringArg()),
       },
-      resolve: async (parent, args, ctx) => {
-        return null
-        //TODO:
+      resolve: async (_parent, args, ctx) => {
+        return await ctx.prisma.user.create({
+          data: {
+            name: args.name,
+            email: args.email,
+          },
+        })
       },
     })
     t.field('updateUser', {
       type: 'User',
       args: {
-        //TODO:
+        userId: nonNull(stringArg()),
+        name: stringArg(),
+        email: stringArg(),
       },
-      resolve: async (parent, args, ctx) => {
-        return null
-        //TODO:
+      resolve: async (_parent, args, ctx) => {
+        return await ctx.prisma.user.update({
+          where: { id: args.userId },
+          data: {
+            name: args.name,
+            email: args.email,
+          },
+        })
       },
     })
     t.field('deleteUser', {
       type: 'User',
       args: {
-        //TODO:
+        userId: nonNull(stringArg()),
       },
-      resolve: async (parent, args, ctx) => {
-        return null
-        //TODO:
+      resolve: async (_parent, args, ctx) => {
+        return await ctx.prisma.user.delete({
+          where: { id: args.userId },
+        })
       },
     })
   },
