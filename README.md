@@ -16,17 +16,18 @@ Now you're ready to set everything up locally:
 
 1. **Install Docker** by following their [installation instructions for your OS](https://docs.docker.com/get-docker/).
 
-2. **Install the dependencies** with `npm`:
+2. **Start the local development database** with `docker-compose`:
+
+```sh
+docker-compose up
+```
+
+3. **Install the dependencies** with `npm`:
 
 ```sh
 npm install
 ```
 
-3. **Start the local development database** with `docker-compose`:
-
-```sh
-docker-compose up
-```
 
 4. **Push the schema to the local development database** with `npx`:
 
