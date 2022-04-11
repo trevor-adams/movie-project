@@ -1,12 +1,13 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout'
+import { ApolloProvider} from "@apollo/client";
+import { client } from '../lib/apollo'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <ApolloProvider client={client}>
       <Component {...pageProps} />
-    </Layout>
+    </ApolloProvider>
   )
 }
 
